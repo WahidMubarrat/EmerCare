@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# Logs
+logs
+*.log
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build outputs
+dist/
+build/
+.next/
+*.tsbuildinfo
+frontend/dist/
+backend/dist/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Test files
+backend/test-cloudinary.js
+test-*.js
+
+# Root level node_modules (workspace root)
+/node_modules/
+/package-lock.json
+/package.json

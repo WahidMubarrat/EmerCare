@@ -1,0 +1,413 @@
+.ambulance-list-page {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.ambulance-list-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+}
+
+.ambulance-list-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ambulance-list-header h1 {
+  font-size: 2.5rem;
+  color: #dc143c;
+  margin-bottom: 0.5rem;
+}
+
+.ambulance-list-header .subtitle {
+  font-size: 1.1rem;
+  color: #c41e3a;
+  margin-bottom: 1.5rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #ffe0b2;
+  border-top-color: #fb8c00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  background-color: #ffccbc;
+  color: #d84315;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: #ff9800;
+  font-size: 1.1rem;
+}
+
+.ambulance-count {
+  color: #ff9800;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.location-indicator {
+  color: #dc143c;
+  font-weight: 600;
+}
+
+.ambulance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Outer Card - Owner Card */
+.ambulance-owner-card {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(220, 20, 60, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.ambulance-owner-card:hover {
+  box-shadow: 0 6px 20px rgba(220, 20, 60, 0.2);
+  transform: translateY(-4px);
+  border-color: #c41e3a;
+}
+
+/* Owner Info Section */
+.owner-info-section {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, #fff8f8 100%);
+}
+
+.owner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.owner-main-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.owner-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.owner-name {
+  font-size: 1.75rem;
+  color: #dc143c;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.distance-badge {
+  background: linear-gradient(135deg, #dc143c 0%, #c41e3a 100%);
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(220, 20, 60, 0.25);
+  white-space: nowrap;
+}
+
+.owner-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.location,
+.age {
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.owner-contact {
+  display: flex;
+  gap: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.owner-contact span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.owner-address {
+  color: #888;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border-left: 3px solid #dc143c;
+  border-radius: 4px;
+}
+
+.owner-picture {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid #dc143c;
+  box-shadow: 0 4px 8px rgba(220, 20, 60, 0.2);
+}
+
+.owner-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.owner-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Vehicles Fleet Section - Inner Cards Container */
+.vehicles-fleet-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-top: 2px dashed #dc143c;
+}
+
+.fleet-title {
+  color: #dc143c;
+  font-size: 1.2rem;
+  margin: 0 0 1.25rem 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vehicles-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Inner Card - Vehicle Info */
+.vehicle-info-item {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.vehicle-info-item:hover {
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
+  transform: translateY(-2px);
+  border-color: #c41e3a;
+}
+
+.vehicle-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #ffe8e8;
+}
+
+.vehicle-number {
+  font-weight: 700;
+  color: #dc143c;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.vehicle-status {
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.vehicle-status.available {
+  background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.vehicle-status.unavailable {
+  background: linear-gradient(135deg, #e57373 0%, #ef5350 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+}
+
+.vehicle-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.vehicle-info-details p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.vehicle-info-details strong {
+  color: #333;
+  font-weight: 600;
+  min-width: 80px;
+  display: inline-block;
+}
+
+.no-vehicles-message {
+  background: #fff8f8;
+  border: 2px dashed #dc143c;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: #dc143c;
+  font-style: italic;
+  margin: 1rem;
+}
+
+.no-vehicles-message p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.action-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-call {
+  background-color: #dc143c;
+  color: white;
+}
+
+.btn-call:hover {
+  background-color: #c41e3a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 20, 60, 0.3);
+}
+
+.btn-email {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.btn-email:hover {
+  background-color: #ff5252;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ambulance-list-content {
+    padding: 1rem;
+  }
+
+  .ambulance-list-header h1 {
+    font-size: 2rem;
+  }
+
+  .owner-info-section {
+    padding: 1rem;
+  }
+
+  .owner-header {
+    flex-direction: column;
+  }
+
+  .owner-picture {
+    width: 100%;
+    height: 200px;
+  }
+
+  .owner-name {
+    font-size: 1.5rem;
+  }
+
+  .owner-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  .owner-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .owner-contact {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vehicles-fleet-section {
+    padding: 1rem;
+  }
+
+  .fleet-title {
+    font-size: 1rem;
+  }
+
+  .vehicles-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

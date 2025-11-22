@@ -1,0 +1,460 @@
+.hospital-services-detail-page {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #ffcccc;
+  border-top-color: #dc143c;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  color: #dc143c;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.services-detail-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.services-detail-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.services-detail-header h1 {
+  color: #dc143c;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #c41e3a;
+  font-size: 1.1rem;
+}
+
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-item {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #c41e3a;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dc143c;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: #c41e3a;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-section {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #dc143c;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+}
+
+.detail-section h2 {
+  color: #dc143c;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #dc143c;
+}
+
+/* Doctors Section */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.doctor-detail-card {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.doctor-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #c41e3a;
+}
+
+.doctor-detail-card h3 {
+  color: #dc143c;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.specialty {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #dc143c;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.doctor-detail-card p {
+  color: #333;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.availability-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #dc143c, #c41e3a);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+/* Services Section */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-detail-card {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.service-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #c41e3a;
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.service-header h3 {
+  color: #dc143c;
+  font-size: 1.2rem;
+  flex: 1;
+}
+
+.service-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-blue {
+  background: linear-gradient(135deg, #dc143c, #c41e3a);
+  color: white;
+}
+
+.badge-green {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+}
+
+.service-detail-card p {
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Beds Section */
+.beds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.bed-detail-card {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.bed-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #c41e3a;
+}
+
+.bed-detail-card h3 {
+  color: #dc143c;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ffcccc;
+}
+
+.bed-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bed-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bed-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dc143c;
+}
+
+.bed-label {
+  font-size: 0.85rem;
+  color: #c41e3a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bed-divider {
+  font-size: 2rem;
+  color: #ffcccc;
+  font-weight: bold;
+}
+
+.bed-progress {
+  height: 8px;
+  background: #fff5f5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bed-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #dc143c, #c41e3a);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+/* Blood Bank Section */
+.blood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.blood-detail-card {
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.blood-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.blood-detail-card.available {
+  border-color: #dc143c;
+  background: linear-gradient(135deg, #fff5f5, #ffe0e0);
+}
+
+.blood-detail-card.unavailable {
+  border-color: #e0e0e0;
+  background: #fafafa;
+  opacity: 0.7;
+}
+
+.blood-group {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #d32f2f;
+  margin-bottom: 0.5rem;
+}
+
+.blood-detail-card.unavailable .blood-group {
+  color: #9e9e9e;
+}
+
+.blood-units {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dc143c;
+  margin-bottom: 0.25rem;
+}
+
+.blood-detail-card.unavailable .blood-units {
+  color: #757575;
+}
+
+.blood-label {
+  font-size: 0.85rem;
+  color: #dc143c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.available-badge {
+  background: linear-gradient(135deg, #dc143c, #c41e3a);
+  color: white;
+}
+
+.unavailable-badge {
+  background: #e0e0e0;
+  color: #757575;
+}
+
+/* Empty State */
+.empty-services {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #dc143c;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.empty-services h3 {
+  color: #dc143c;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-services p {
+  color: #c41e3a;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .services-detail-content {
+    padding: 1rem;
+  }
+
+  .services-detail-header h1 {
+    font-size: 2rem;
+  }
+
+  .stats-overview {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .detail-section {
+    padding: 1.5rem;
+  }
+
+  .detail-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .doctors-grid,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .beds-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .blood-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .beds-grid,
+  .blood-grid {
+    grid-template-columns: 1fr;
+  }
+}

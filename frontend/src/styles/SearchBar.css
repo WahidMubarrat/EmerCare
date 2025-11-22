@@ -1,0 +1,131 @@
+.search-bar-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.search-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-input-group label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn-search,
+.btn-clear,
+.btn-near-me {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-near-me {
+  background: linear-gradient(135deg, #dc143c 0%, #c41e3a 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+}
+
+.btn-near-me:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.4);
+}
+
+.btn-near-me:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-search {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn-search:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+}
+
+.btn-clear {
+  background: #757575;
+  color: white;
+}
+
+.btn-clear:hover {
+  background: #616161;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .search-bar-container {
+    padding: 1rem;
+  }
+
+  .search-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .search-actions {
+    flex-direction: column;
+  }
+
+  .btn-search,
+  .btn-clear {
+    width: 100%;
+    justify-content: center;
+  }
+}
