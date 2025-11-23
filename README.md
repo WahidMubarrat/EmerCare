@@ -210,7 +210,7 @@ This project is licensed under the ISC License.
 
 ## 👥 Authors
 
-- Your Name
+-Wahid Mubarrat Bin Azhar
 
 ## ⚠️ Important Notes
 
