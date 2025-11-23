@@ -14,7 +14,8 @@ The platform ensures that in urgent situations, users can **quickly locate help 
 
 ## 🚀 Features
 
-- **Three User Types**: Hospitals, Blood Donors, and Ambulance Services
+- **System Accounts: Hospitals, Blood Donors, and Ambulance Services
+- **General Users: Can search nearby hospitals, donors, and ambulance services during emergencies without needing an account
 - **Smart Registration**: Text-based or GPS location capture
 - **"Near Me" Search**: Find closest services using geolocation within 50km radius
 - **Service Management**: Manage doctors, vehicles, bed capacity, and blood bank inventory
