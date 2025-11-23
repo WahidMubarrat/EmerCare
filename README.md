@@ -2,6 +2,16 @@
 
 A healthcare coordination platform connecting patients with hospitals, blood donors, and ambulance services in emergency situations. Features GPS-based proximity search, dual-mode address registration, and real-time service availability tracking.
 
+## 🎯 Core Purpose of EmerCare
+EmerCare is designed to assist people during emergencies by providing **all critical healthcare information in one place**.  
+Users can instantly find:
+
+- Nearby **hospitals** with real-time availability (beds, doctors, blood bank)
+- **Ambulance services** with live availability and contact options
+- **Blood donors** filtered by blood group and location
+
+The platform ensures that in urgent situations, users can **quickly locate help and directly contact the right service** without wasting time searching across different platforms.
+
 ## 🚀 Features
 
 - **Three User Types**: Hospitals, Blood Donors, and Ambulance Services
