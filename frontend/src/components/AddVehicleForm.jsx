@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/AddVehicleForm.css';
 
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function AddVehicleForm({ ownerId, onVehicleAdded, onCancel }) {
   const [formData, setFormData] = useState({
     vehicleNumber: '',
@@ -72,7 +74,7 @@ export default function AddVehicleForm({ ownerId, onVehicleAdded, onCancel }) {
         fileToBase64(documents.fitnessPaper)
       ]);
 
-      const response = await fetch('http://localhost:5000/api/ambulance-vehicles', {
+      const response = await fetch(`${BASE_URL}/api/ambulance-vehicles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

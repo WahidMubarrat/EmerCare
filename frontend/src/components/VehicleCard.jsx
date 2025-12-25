@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/VehicleCard.css';
 
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function VehicleCard({ vehicle, onDelete, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -24,7 +26,7 @@ export default function VehicleCard({ vehicle, onDelete, onUpdate }) {
   const handleSave = async () => {
     try {
       setUpdating(true);
-      const response = await fetch(`http://localhost:5000/api/ambulance-vehicles/${vehicle._id}`, {
+      const response = await fetch(`${BASE_URL}/api/ambulance-vehicles/${vehicle._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ export default function VehicleCard({ vehicle, onDelete, onUpdate }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/ambulance-vehicles/${vehicle._id}`, {
+      const response = await fetch(`${BASE_URL}/api/ambulance-vehicles/${vehicle._id}`, {
         method: 'DELETE'
       });
 
@@ -76,7 +78,7 @@ export default function VehicleCard({ vehicle, onDelete, onUpdate }) {
   const toggleAvailability = async () => {
     try {
       const newAvailability = !isAvailable;
-      const response = await fetch(`http://localhost:5000/api/ambulance-vehicles/${vehicle._id}/availability`, {
+      const response = await fetch(`${BASE_URL}/api/ambulance-vehicles/${vehicle._id}/availability`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

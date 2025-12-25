@@ -6,6 +6,8 @@ import AddVehicleForm from '../components/AddVehicleForm';
 import VehicleCard from '../components/VehicleCard';
 import '../styles/ManageCollection.css';
 
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function ManageCollection() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
@@ -34,7 +36,7 @@ export default function ManageCollection() {
   const fetchVehicles = async (ownerId) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/ambulance-vehicles/owner/${ownerId}`);
+      const response = await fetch(`${BASE_URL}/api/ambulance-vehicles/owner/${ownerId}`);
       const data = await response.json();
 
       if (response.ok) {
