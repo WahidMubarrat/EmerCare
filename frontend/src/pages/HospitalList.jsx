@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import BackButton from '../components/BackButton';
 import SearchBar from '../components/SearchBar';
@@ -15,18 +15,32 @@ export default function HospitalList() {
   const [error, setError] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [isLocationSearch, setIsLocationSearch] = useState(false);
+  const [activeQuery, setActiveQuery] = useState('');
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    fetchHospitals();
-  }, []);
+    const q = searchParams.get('q') || '';
+    setActiveQuery(q);
+    fetchHospitals(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
-  const fetchHospitals = async () => {
+  const fetchHospitals = async (query = '') => {
     try {
       setLoading(true);
       const response = await getAllHospitals();
       // Extract hospital data from response
-      const hospitalData = response.data || [];
+      let hospitalData = response.data || [];
+      // Apply navbar search query (name, city, or postcode match)
+      if (query) {
+        const term = query.toLowerCase();
+        hospitalData = hospitalData.filter((h) =>
+          `${h.hospitalName} ${h.city || ''} ${h.postcode || ''}`
+            .toLowerCase()
+            .includes(term)
+        );
+      }
       // Sort alphabetically by hospital name
       const sortedHospitals = hospitalData.sort((a, b) => 
         a.hospitalName.localeCompare(b.hospitalName)

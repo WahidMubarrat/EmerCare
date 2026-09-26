@@ -8,6 +8,7 @@ import hospitalRoutes from './routes/hospitalRoutes.js';
 import ambulanceRoutes from './routes/ambulanceRoutes.js';
 import ambulanceVehicleRoutes from './routes/ambulanceVehicleRoutes.js';
 import hospitalServiceRoutes from './routes/hospitalServiceRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 
 dotenv.config();
 
@@ -62,6 +63,7 @@ app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/ambulances', ambulanceRoutes);
 app.use('/api/ambulance-vehicles', ambulanceVehicleRoutes);
 app.use('/api/hospital-services', hospitalServiceRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Root API
 app.get('/api', (req, res) => {
@@ -73,7 +75,8 @@ app.get('/api', (req, res) => {
       hospitals: '/api/hospitals',
       ambulances: '/api/ambulances',
       ambulanceVehicles: '/api/ambulance-vehicles',
-      hospitalServices: '/api/hospital-services'
+      hospitalServices: '/api/hospital-services',
+      ai: '/api/ai'
     }
   });
 });

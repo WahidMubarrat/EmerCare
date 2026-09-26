@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import ManageCollection from './pages/ManageCollection'
 import ManageHospitalServices from './pages/ManageHospitalServices'
 import HospitalServicesDetail from './pages/HospitalServicesDetail'
+import ChatBot from './components/ChatBot'
 import './App.css'
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/manage-hospital-services" element={<ManageHospitalServices />} />
         <Route path="/hospital/:hospitalId/services" element={<HospitalServicesDetail />} />
       </Routes>
+      <ChatBot />
     </Router>
   )
 }

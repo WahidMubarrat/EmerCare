@@ -209,6 +209,24 @@ export const updateHospitalBloodBank = async (hospitalId, bloodBank) => {
 };
 
 /**
+ * AI assistant chat (triage + facility suggestions)
+ */
+export const sendAiChat = async ({ message, history = [], latitude = null, longitude = null, city = '' }) => {
+  try {
+    return await api.post('/ai/chat', {
+      message,
+      history,
+      latitude,
+      longitude,
+      city
+    }, { timeout: 60000 });
+  } catch (error) {
+    console.error('AI chat error:', error);
+    throw error;
+  }
+};
+
+/**
  * Login function that tries all three account types
  */
 export const login = async (email, password) => {
