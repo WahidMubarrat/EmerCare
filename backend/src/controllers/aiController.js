@@ -1,5 +1,6 @@
 import Hospital from '../models/Hospital.js';
 import Donor from '../models/Donor.js';
+import HospitalServiceProfile from '../models/HospitalServiceProfile.js';
 import { queryOpenRouter, isAiConfigured } from '../utils/openrouter.js';
 
 const MAX_DISTANCE = 50000; // 50km default radius
@@ -90,17 +91,97 @@ const fetchNearbyDonors = async ({ lat, lng, city, bloodGroup }) => {
   );
 };
 
-const buildFacilityContext = (hospitals, donors, bloodGroup) => {
-  const hospitalLines = hospitals.length
-    ? hospitals
-        .map(
-          (h) =>
-            `- ${h.hospitalName}${h.city ? `, ${h.city}` : ''}${
-              h.distanceKm !== undefined ? ` (${h.distanceKm} km)` : ''
-            }${h.phone ? ` | tel: ${h.phone}` : ''}`
-        )
+const normalizeText = (value) => String(value || '').trim();
+
+const describeAvailableBeds = (beds = []) => {
+  const activeBeds = beds.filter((bed) => bed && bed.name && (bed.available || bed.total));
+  if (!activeBeds.length) return 'No bed data provided';
+  return activeBeds
+    .slice(0, 4)
+    .map((bed) => `${bed.name}: ${bed.available ?? 0} available / ${bed.total ?? 0} total`)
+    .join('; ');
+};
+
+const describeBloodBank = (bloodBank = []) => {
+  const entries = bloodBank.filter((group) => group && group.bloodGroup && group.units !== undefined);
+  if (!entries.length) return 'No blood bank data provided';
+  return entries
+    .slice(0, 5)
+    .map((group) => `${group.bloodGroup}: ${group.units} units`)
+    .join('; ');
+};
+
+const buildHospitalServiceContext = async ({ lat, lng, city }) => {
+  const hospitals = await Hospital.find({
+    isActive: true,
+    ...(lat !== null && lng !== null ? nearFilter(lat, lng) : city ? { city: new RegExp(city, 'i') } : {}),
+  })
+    .select('hospitalName phone email street city postcode location')
+    .limit(NEARBY_LIMIT)
+    .lean();
+
+  const hospitalIds = hospitals.map((hospital) => hospital._id);
+  const profiles = hospitalIds.length
+    ? await HospitalServiceProfile.find({ hospitalId: { $in: hospitalIds } }).lean()
+    : [];
+
+  const profileMap = new Map(profiles.map((profile) => [String(profile.hospitalId), profile]));
+
+  return (lat !== null && lng !== null ? withDistanceKm(hospitals, lat, lng) : hospitals).map((hospital) => {
+    const profile = profileMap.get(String(hospital._id));
+    const services = Array.isArray(profile?.services) ? profile.services.slice(0, 6) : [];
+    const doctors = Array.isArray(profile?.doctors) ? profile.doctors.slice(0, 5) : [];
+    const beds = Array.isArray(profile?.beds) ? profile.beds : [];
+    const bloodBank = Array.isArray(profile?.bloodBank) ? profile.bloodBank : [];
+
+    return {
+      id: hospital._id,
+      hospitalName: hospital.hospitalName,
+      phone: hospital.phone,
+      street: hospital.street,
+      city: hospital.city,
+      postcode: hospital.postcode,
+      distanceKm: hospital.distanceKm,
+      services: services.map((service) => ({
+        name: normalizeText(service.name),
+        type: normalizeText(service.type),
+        description: normalizeText(service.description),
+      })),
+      doctors: doctors.map((doctor) => ({
+        name: normalizeText(doctor.name),
+        specialty: normalizeText(doctor.specialty),
+        availability: normalizeText(doctor.availability),
+      })),
+      beds,
+      bloodBank,
+    };
+  });
+};
+
+const buildFacilityContext = (hospitals, donors, bloodGroup, hospitalDetails = []) => {
+  const hospitalLines = hospitalDetails.length
+    ? hospitalDetails
+        .map((h) => {
+          const serviceSummary = h.services?.length
+            ? h.services.map((service) => service.name).slice(0, 4).join(', ')
+            : 'No services listed';
+          const doctorSummary = h.doctors?.length
+            ? h.doctors.map((doctor) => `${doctor.specialty || 'Doctor'} (${doctor.availability || 'Available'})`).slice(0, 3).join(', ')
+            : 'No doctor data';
+          const distance = h.distanceKm !== undefined ? ` (${h.distanceKm} km)` : '';
+          return `- ${h.hospitalName}${h.city ? `, ${h.city}` : ''}${distance}${h.phone ? ` | tel: ${h.phone}` : ''}\n  Services: ${serviceSummary}\n  Specialists: ${doctorSummary}\n  Beds: ${describeAvailableBeds(h.beds)}\n  Blood bank: ${describeBloodBank(h.bloodBank)}`;
+        })
         .join('\n')
-    : '- (none available)';
+    : hospitals.length
+      ? hospitals
+          .map(
+            (h) =>
+              `- ${h.hospitalName}${h.city ? `, ${h.city}` : ''}${
+                h.distanceKm !== undefined ? ` (${h.distanceKm} km)` : ''
+              }${h.phone ? ` | tel: ${h.phone}` : ''}`
+          )
+          .join('\n')
+      : '- (none available)';
 
   const donorLines = donors.length
     ? donors
@@ -113,20 +194,23 @@ const buildFacilityContext = (hospitals, donors, bloodGroup) => {
         .join('\n')
     : '- (none available)';
 
-  return `Nearby hospitals on the EmerCare network:\n${hospitalLines}\n\nBlood donors on the EmerCare network${
+  return `Nearby hospitals and services on the EmerCare network:\n${hospitalLines}\n\nBlood donors on the EmerCare network${
     bloodGroup ? ` matching ${bloodGroup}` : ''
   }:\n${donorLines}`;
 };
 
-const SYSTEM_PROMPT = `You are EmerCare Assistant, a friendly emergency first-aid and healthcare triage companion for the EmerCare network.
+const SYSTEM_PROMPT = `You are EmerCare Assistant, a medically cautious healthcare guidance assistant for the EmerCare network.
 
-Your job:
-- Answer the user's health questions and give clear, safe PRIMARY TREATMENT / first-aid suggestions for minor and non-critical situations (e.g., cuts, burns, fever, headache, sprains, allergic reactions).
-- For potentially life-threatening symptoms (chest pain, difficulty breathing, severe or uncontrolled bleeding, unconsciousness, stroke signs, sudden severe pain, poisoning), clearly instruct the user to call emergency services or visit the nearest emergency room immediately, and give only safe interim first-aid steps.
-- Keep answers concise (under ~200 words). Use short sections and bullet points when helpful.
-- You will be given a list of nearby hospitals and blood donors from the EmerCare network. Refer to them only when relevant to the user's situation, by name and city. NEVER invent facilities that are not listed.
-- Only suggest blood donors when the user mentions needing blood or a donation.
-- Always end with a one-line reminder that you are not a substitute for professional medical advice or emergency services.`;
+Important behavior rules:
+- Use the provided hospital/service context as the source of truth. Do not invent hospitals, departments, services, doctors, blood stock, or facilities.
+- Keep answers brief, clear, and action-oriented. Prefer short sections with bullets.
+- For minor non-emergency symptoms, provide safe, general first-aid / primary-care guidance only and recommend a local clinic or hospital when relevant.
+- For emergency symptoms such as chest pain, breathing difficulties, severe bleeding, fainting, stroke signs, severe allergic reaction, poisoning, severe dehydration, or sudden severe pain, tell the user to call emergency services immediately or go to the nearest emergency department without delay.
+- When the user asks about a condition or symptom, match it to the available nearby hospital services and doctors before suggesting a facility.
+- If the retrieved hospital context contains relevant services, mention those services by name and hospital.
+- Only suggest blood donors when the user specifically asks for blood or donate-related help.
+- Always add a disclaimer that this is general health guidance and not a diagnosis, and that professional medical attention is needed for serious symptoms.
+- Do not claim certainty about diagnosis or treatment beyond safe general guidance.`;
 
 /**
  * Chat endpoint: triage reply + nearby facility suggestions.
@@ -154,13 +238,14 @@ export const chat = async (req, res) => {
   try {
     const bloodGroup = extractBloodGroup(text);
 
-    const [hospitals, donors] = await Promise.all([
+    const [hospitals, donors, hospitalDetails] = await Promise.all([
       fetchNearbyHospitals({ lat, lng, city }),
       fetchNearbyDonors({ lat, lng, city, bloodGroup }),
+      buildHospitalServiceContext({ lat, lng, city }),
     ]);
 
-    const facilityContext = buildFacilityContext(hospitals, donors, bloodGroup);
-    const userContent = `${text}\n\n---\nReference facilities (use only when relevant):\n${facilityContext}`;
+    const facilityContext = buildFacilityContext(hospitals, donors, bloodGroup, hospitalDetails);
+    const userContent = `${text}\n\n---\nRelevant EmerCare context (use this as the primary factual source):\n${facilityContext}`;
 
     const sanitizedHistory = Array.isArray(history)
       ? history

@@ -142,7 +142,7 @@ export const getAllAmbulances = async (req, res) => {
       // Fetch vehicles for each ambulance
       const ambulancesWithVehicles = await Promise.all(
         ambulances.map(async (ambulance) => {
-          const vehicles = await AmbulanceVehicle.find({ ambulanceId: ambulance._id });
+          const vehicles = await AmbulanceVehicle.find({ ownerId: ambulance._id, isActive: true });
           return {
             ...ambulance.toObject(),
             vehicles,

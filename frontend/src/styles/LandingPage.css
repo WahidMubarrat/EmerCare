@@ -117,6 +117,148 @@
   font-size: 1rem;
 }
 
+/* Network Statistics */
+.network-stats {
+  padding: 4rem 1rem 3rem;
+}
+
+.network-stats-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-kicker {
+  color: #c41e3a;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.network-stats-heading h2 {
+  color: #424242;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.network-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.network-stat-card {
+  background: transparent;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.network-stat-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.65rem;
+}
+
+.network-stat-card strong {
+  display: block;
+  color: #dc143c;
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.network-stat-card span:last-child {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Footer */
+.landing-footer {
+  padding: 3rem max(2rem, calc((100% - 1360px) / 2)) 1.25rem;
+  background: #b51232;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88rem;
+}
+
+.landing-footer-inner {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-brand h2,
+.footer-column h3 {
+  margin: 0 0 0.85rem;
+  color: #fff;
+}
+
+.footer-brand h2 {
+  font-size: 1.65rem;
+}
+
+.footer-column h3 {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-brand p,
+.footer-column p,
+.footer-column span {
+  display: block;
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+.footer-column button {
+  display: block;
+  padding: 0;
+  margin: 0 0 0.55rem;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.footer-column button:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-column span {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-note p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.landing-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 2rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.landing-footer-bottom p {
+  margin: 0;
+}
+
+.landing-footer-bottom p:first-child {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
 /* Responsive Design */
 
 /* Large Tablet (1024px - 1280px) */
@@ -143,6 +285,10 @@
   .features-section {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+  }
+
+  .network-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero-btn {
@@ -179,6 +325,18 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
     padding: 1rem 0.5rem;
+  }
+
+  .network-stats {
+    padding: 2.5rem 0.5rem 2rem;
+  }
+
+  .network-stats-grid {
+    gap: 0.25rem;
+  }
+
+  .network-stats-heading h2 {
+    font-size: 1.6rem;
   }
 
   .feature-card {
@@ -236,6 +394,25 @@
 
   .feature-card p {
     font-size: 0.9rem;
+  }
+
+  .landing-footer {
+    padding: 2.5rem 1rem 1.25rem;
+  }
+
+  .landing-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .landing-footer-bottom {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
   }
 }
 

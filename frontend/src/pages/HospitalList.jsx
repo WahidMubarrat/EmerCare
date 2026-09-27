@@ -148,14 +148,6 @@ export default function HospitalList() {
     navigate(`/hospital/${hospitalId}/services`);
   };
 
-  const handleViewReviews = (hospitalId) => {
-    navigate(`/hospital/${hospitalId}/reviews`);
-  };
-
-  const handleViewDetails = (hospitalId) => {
-    navigate(`/hospital/${hospitalId}`);
-  };
-
   if (loading) {
     return (
       <div className="hospital-list-page">
@@ -203,9 +195,7 @@ export default function HospitalList() {
                 key={hospital._id}
                 hospital={hospital}
                 distance={hospital.distance}
-                onViewDetails={handleViewDetails}
                 onViewServices={handleViewServices}
-                onViewReviews={handleViewReviews}
               />
             ))}
           </div>

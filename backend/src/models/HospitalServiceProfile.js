@@ -93,8 +93,6 @@ const hospitalServiceSchema = new mongoose.Schema({
   timestamps: true
 });
 
-hospitalServiceSchema.index({ hospitalId: 1 });
-
 const HospitalServiceProfile = mongoose.model('HospitalServiceProfile', hospitalServiceSchema);
 
 export default HospitalServiceProfile;

@@ -48,6 +48,7 @@ coverage/
 
 # Test files
 backend/test-cloudinary.js
+backend/seed-dummy-data.js
 test-*.js
 
 # Root level node_modules (workspace root)

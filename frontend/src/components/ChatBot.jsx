@@ -111,13 +111,18 @@ export default function ChatBot() {
           title="EmerCare Assistant"
         >
           {isOpen ? (
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" stroke="none">
-              <path d="M12 3l1.9 5.1a2 2 0 0 0 1.2 1.2L20.2 12l-5.1 1.9a2 2 0 0 0-1.2 1.2L12 20.2l-1.9-5.1a2 2 0 0 0-1.2-1.2L3.8 12l5.1-1.9a2 2 0 0 0 1.2-1.2L12 3z" />
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="5" y="7" width="14" height="10" rx="2.5" />
+              <path d="M9 7V5.5a3 3 0 0 1 6 0V7" />
+              <circle cx="9.2" cy="11.4" r="1" fill="currentColor" stroke="none" />
+              <circle cx="14.8" cy="11.4" r="1" fill="currentColor" stroke="none" />
+              <path d="M10.3 14.5c.9.8 2.5.8 3.4 0" />
+              <path d="M7 18h10" />
             </svg>
           )}
         </button>

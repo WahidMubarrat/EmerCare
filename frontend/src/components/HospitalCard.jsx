@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatDistance } from '../utils/locationUtils';
 
-export default function HospitalCard({ hospital, distance, onViewDetails, onViewServices, onViewReviews }) {
+export default function HospitalCard({ hospital, distance, onViewServices }) {
   return (
     <div className="hospital-card">
       <div className="hospital-info">
@@ -27,22 +27,10 @@ export default function HospitalCard({ hospital, distance, onViewDetails, onView
 
       <div className="hospital-actions">
         <button 
-          className="action-btn btn-details"
-          onClick={() => onViewDetails(hospital._id)}
-        >
-          View Details
-        </button>
-        <button 
           className="action-btn btn-services"
           onClick={() => onViewServices(hospital._id)}
         >
           Services
-        </button>
-        <button 
-          className="action-btn btn-reviews"
-          onClick={() => onViewReviews(hospital._id)}
-        >
-          Reviews
         </button>
       </div>
     </div>
