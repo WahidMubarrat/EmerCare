@@ -67,9 +67,9 @@ export default function LandingPage() {
             </button>
             <button 
               className="hero-btn hero-btn-secondary"
-              onClick={() => setIsRegisterModalOpen(true)}
+              onClick={() => navigate('/register/donor')}
             >
-              Register
+              Become a Donor
             </button>
           </div>
         </section>
@@ -141,8 +141,7 @@ export default function LandingPage() {
 
           <nav className="footer-column" aria-label="Join EmerCare">
             <h3>Join the network</h3>
-            <button type="button" onClick={() => setIsRegisterModalOpen(true)}>Register with EmerCare</button>
-            <span>For hospitals, donors and ambulance owners</span>
+            <button type="button" onClick={() => navigate('/register/donor')}>Register as Blood Donor</button>
             <span>Built for faster emergency response</span>
           </nav>
 

@@ -1,0 +1,118 @@
+.availability-toggle-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+  border-radius: 8px;
+  border: 2px solid #e53935;
+}
+
+.availability-label {
+  font-weight: 600;
+  color: #c62828;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.toggle-wrapper {
+  position: relative;
+  display: flex;
+  background: white;
+  border-radius: 50px;
+  padding: 3px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s;
+  min-width: 160px;
+}
+
+.toggle-wrapper.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.toggle-option.active {
+  color: white;
+}
+
+.toggle-option:disabled {
+  cursor: not-allowed;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  width: calc(50% - 3px);
+  background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(229, 57, 53, 0.4);
+}
+
+.toggle-slider.left {
+  left: 3px;
+}
+
+.toggle-slider.right {
+  left: calc(50%);
+}
+
+.availability-status {
+  display: none;
+}
+
+.status-available {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.status-unavailable {
+  color: #c62828;
+  font-weight: 600;
+}
+
+/* Animation on toggle */
+.toggle-option:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .availability-toggle-container {
+    padding: 1rem;
+  }
+
+  .availability-label {
+    font-size: 1rem;
+  }
+
+  .toggle-option {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .availability-status {
+    font-size: 0.9rem;
+  }
+}

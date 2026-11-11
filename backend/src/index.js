@@ -19,10 +19,12 @@ const app = express();
 
 // CORS configuration - allow frontend origins
 const allowedOrigins = [
-  'http://localhost:5173',
+  'http://localhost:5173',  // general portal dev
+  'http://localhost:5174',  // service portal dev
   'http://localhost:3000',
   process.env.FRONTEND_URL,
-].filter(Boolean); // Remove undefined values
+  process.env.FRONTEND_SERVICE_URL,
+].filter(Boolean);
 
 const corsOptions = {
   origin: function (origin, callback) {

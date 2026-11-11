@@ -227,36 +227,8 @@ export const sendAiChat = async ({ message, history = [], latitude = null, longi
 };
 
 /**
- * Login function that tries all three account types
+ * Login - donor only (general portal)
  */
 export const login = async (email, password) => {
-  try {
-    // Try hospital login
-    try {
-      return await api.post('/hospitals/login', { email, password });
-    } catch (error) {
-      // Continue to next type
-    }
-
-    // Try donor login
-    try {
-      return await api.post('/donors/login', { email, password });
-    } catch (error) {
-      // Continue to next type
-    }
-
-    // Try ambulance login
-    try {
-      return await api.post('/ambulances/login', { email, password });
-    } catch (error) {
-      // Continue
-    }
-
-    // If none worked, throw error
-    throw new Error('Invalid email or password');
-
-  } catch (error) {
-    console.error('Login error:', error);
-    throw error;
-  }
+  return await api.post('/donors/login', { email, password });
 };

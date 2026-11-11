@@ -5,76 +5,41 @@ import '../styles/SignIn.css';
 
 export default function SignIn({ isOpen, onClose }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email';
+    if (!formData.password.trim()) newErrors.password = 'Password is required';
+    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (validateForm()) {
-      setIsLoading(true);
-      try {
-        const response = await login(formData.email, formData.password);
-        
-        // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(response.data));
-        
-        // Navigate based on user type
-        const userType = response.data.userType;
-        if (userType === 'hospital') {
-          navigate('/hospital-profile');
-        } else if (userType === 'donor') {
-          navigate('/donor-profile');
-        } else if (userType === 'ambulance') {
-          navigate('/ambulance-profile');
-        }
-        
-        onClose();
-      } catch (error) {
-        setErrors({
-          general: error.message || 'Invalid email or password'
-        });
-      } finally {
-        setIsLoading(false);
-      }
+    if (!validateForm()) return;
+    setIsLoading(true);
+    try {
+      const response = await login(formData.email, formData.password);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      navigate('/donor-profile');
+      onClose();
+    } catch (error) {
+      setErrors({
+        general: 'Invalid email or password. Hospital or ambulance? Use the Service Portal.',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,31 +49,23 @@ export default function SignIn({ isOpen, onClose }) {
     <div className="signin-overlay" onClick={onClose}>
       <div className="signin-modal" onClick={(e) => e.stopPropagation()}>
         <button className="signin-close" onClick={onClose}>×</button>
-        
+
         <div className="signin-header">
           <h2>Sign In</h2>
-          <p>Access your EmerCare account</p>
+          <p>Access your donor account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="signin-form">
-          {errors.general && (
-            <div className="error-banner">
-              {errors.general}
-            </div>
-          )}
+          {errors.general && <div className="error-banner">{errors.general}</div>}
 
           <div className="form-group">
             <label htmlFor="email">Email Address *</label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="email" id="email" name="email"
+              value={formData.email} onChange={handleChange}
               placeholder="Enter your email"
               className={errors.email ? 'error' : ''}
-              autoFocus
-              disabled={isLoading}
+              autoFocus disabled={isLoading}
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
@@ -116,11 +73,8 @@ export default function SignIn({ isOpen, onClose }) {
           <div className="form-group">
             <label htmlFor="password">Password *</label>
             <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
+              type="password" id="password" name="password"
+              value={formData.password} onChange={handleChange}
               placeholder="Enter your password"
               className={errors.password ? 'error' : ''}
               disabled={isLoading}
@@ -133,10 +87,11 @@ export default function SignIn({ isOpen, onClose }) {
           </button>
 
           <div className="signin-footer">
-            <p>Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); onClose(); }}>Register here</a></p>
+            <p>Don't have an account? <a href="/register/donor" onClick={(e) => { e.preventDefault(); onClose(); navigate('/register/donor'); }}>Register as Donor</a></p>
           </div>
         </form>
       </div>
     </div>
   );
 }
+
